@@ -1,0 +1,8 @@
+.env
+/static
+cutfb.png
+history_A1.xlsx
+history_GHM.xlsx
+history_KEM.xlsx
+backup
+__pycache__/
