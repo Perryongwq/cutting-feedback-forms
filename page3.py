@@ -102,7 +102,7 @@ def page_3():
         """
     st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-    st.markdown(' FORM NO: GE9106JO1701-00/10 / Appendix 7.17')
+    # st.markdown(' FORM NO: GE9106JO1701-00/10 / Appendix 7.17')
     st.title('B1 KEM cutting process feedback system')
 
     if "file_uploader_key" not in st.session_state:
@@ -220,7 +220,7 @@ def page_3():
     
     with col4:
         st.markdown(f"<div style='font-size:{font_size}px; margin-right: 50px;'>Defect Name:</div>", unsafe_allow_html=True)
-        defect_options = ['w shift', 'L shift', 'Sheet NG', 'W out/ Lout', 'Deformed', 'Slant Cut', 'Pattern dent', 'Dragging', 'Smearing', 'Partial print', 'Blunt cut', 'Others', 'Rough cut', 'VP dent', 'Line']
+        defect_options = ['w shift', 'L shift', 'Sheet NG', 'W out/ Lout', 'Deformed', 'Slant Cut', 'Pattern dent', 'Dragging', 'Smearing', 'Partial print', 'Blunt cut', 'Others', 'Rough cut', 'VP dent', 'Line', 'Step Shift', 'Ridge/Dent']
         selected_defects = st.multiselect('Select defects', defect_options, key='defects')
         sub_col1, sub_col2, sub_col3 = st.columns(3)
         
@@ -248,9 +248,13 @@ def page_3():
         Quality_Case = ['open','close']
         selected_Case = st.selectbox('Select Case', Quality_Case, key='Case')
 
+        st.markdown(f"<div style='font-size:{font_size}px'>Process Selection:</div>", unsafe_allow_html=True)
+        process_options = ['Stacking Feedback', 'Cutting Feedback']
+        selected_process = st.multiselect('Select Process', process_options, key='process')
+
     if st.button('Send Email'):
         if not (lot_number and item_type and ERST_McNo and MC_MchNo and Cut_Operpayroll and NGNuofBLK_lot and NG_chip_qty_lot and block_number and 
-                confirm_date and photos and selected_reason and selected_defects and shift_amount and shift_direction):
+                confirm_date and photos and selected_reason and selected_defects and shift_amount and shift_direction and selected_process):
             st.error('Please fill all the fields and upload a photo.')
         else:
             if not os.path.exists('static/uploads/page3'):
@@ -296,9 +300,30 @@ def page_3():
                         f"Defects: {', '.join(selected_defects)}\n"
                         f"Judgement Block: {judgements['block']}\n"
                         f"Shifting Amount: {shift_amount}\n"
-                        f"Quality Case: {selected_Case}\n")
+                        f"Shifting Direction: {', '.join(shift_direction)}\n" 
+                        f"Quality Case: {selected_Case}\n"
+                        f"Process select: {', '.join(selected_process)}\n"
+                        )
 
-            send_email('Details Submitted - B1 KEM Cutting Feedback', 'cutting_fb@murata.com', ['perry.ong@murata.com'], email_body, photo_paths, grid_image_path)
+            # send_email('Details Submitted - B1 KEM Cutting Feedback', 'cutting_fb@murata.com', ['perry.ong@murata.com'], email_body, photo_paths, grid_image_path)
+            send_email(
+                'Details Submitted - B1 KEM Cutting Feedback', 
+                'cutting_fb@murata.com', 
+                [
+                    'perry.ong@murata.com',
+                    # 'mahesh.subramanian@murata.com'
+                    # 'k.gopinath@murata.com',
+                    # 'kumarsamy.mascow@murata.com',
+                    # 'logenthan.ramachenderan@murata.com',
+                    # 'ramesh.jayabalan@murata.com',s
+                    # 'yogakumaran.krishnan@murata.com',
+                    # 'reluvanullah.s@murata.com'
+                ], 
+                email_body, 
+                photo_paths, 
+                grid_image_path
+            )
+
             st.success('Email sent successfully!')
 
             # Add the new entry to the history DataFrame
@@ -317,8 +342,9 @@ def page_3():
                 'Defects': [', '.join(selected_defects)],
                 'Judgement Block': [judgements['block']],
                 'Shifting Amount': [shift_amount],
-                'Shifting Direction': [shift_direction],
-                'Quality Case': [selected_Case]
+                'Shifting Direction': [', '.join(shift_direction)],
+                'Quality Case': [selected_Case],
+                'Process select': [selected_process]
             })
 
             st.session_state.history_df_page3 = pd.concat([st.session_state.history_df_page3, new_entry], ignore_index=True)

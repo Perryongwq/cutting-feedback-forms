@@ -242,7 +242,7 @@ def page_1():
     
     with col4:
         st.markdown(f"<div style='font-size:{font_size}px; margin-right: 50px;'>Defect Name:</div>", unsafe_allow_html=True)
-        defect_options = ['w shift', 'L shift', 'Sheet NG', 'W out/ Lout', 'Deformed', 'Slant Cut', 'Pattern dent', 'Dragging', 'Smearing', 'Partial print', 'Blunt cut', 'Others', 'Rough cut', 'VP dent', 'Line']
+        defect_options = ['w shift', 'L shift', 'Sheet NG', 'W out/ Lout', 'Deformed', 'Slant Cut', 'Pattern dent', 'Dragging', 'Smearing', 'Partial print', 'Blunt cut', 'Others', 'Rough cut', 'VP dent', 'Line', 'Step Shift', 'Ridge/Dent']
         selected_defects = st.multiselect('Select defects', defect_options, key='defects')
         sub_col1, sub_col2, sub_col3 = st.columns(3)
         
@@ -287,10 +287,14 @@ def page_1():
         Quality_Case = ['open','close']
         selected_Case = st.selectbox('Select Case', Quality_Case, key='Case')
 
+        st.markdown(f"<div style='font-size:{font_size}px'>Process Selection:</div>", unsafe_allow_html=True)
+        process_options = ['Stacking Feedback', 'Cutting Feedback']
+        selected_process = st.multiselect('Select Process', process_options, key='process')
+        
     if st.button('Send Email'):
         if not (lot_number and item_type and GSX_McNo and MC_MchNo and Cut_Operpayroll and NGNuofBLK_lot and NG_chip_qty_lot and block_number and 
                 confirm_date and photos and selected_reason and selected_defects and shift_amount_a and shift_amount_b and shift_amount_c and 
-                shift_amount_d and shift_direction_a and shift_direction_b and shift_direction_c and shift_direction_d):
+                shift_amount_d and shift_direction_a and shift_direction_b and shift_direction_c and shift_direction_d and selected_process):
             st.error('Please fill all the fields and upload a photo.')
         else:
             if not os.path.exists('static/uploads/page1'):
@@ -350,10 +354,50 @@ def page_1():
                         f"Shifting Direction B: {shift_direction_b}\n"
                         f"Shifting Direction C: {shift_direction_c}\n"
                         f"Shifting Direction D: {shift_direction_d}\n"
-                        f"Quality Case: {selected_Case}\n")
+                        f"Quality Case: {selected_Case}\n"
+                        f"Process select: {selected_process}\n"
+                        )
 
             # send_email('Details Submitted- A1 Cutting Feedback', 'cutting_fb@murata.com', ['mahesh.subramanian@murata.com'], email_body, photo_path, grid_image_path)
-            send_email('Details Submitted - A1 Cutting Feedback', 'cutting_fb@murata.com', ['perry.ong@murata.com'], email_body, photo_paths, grid_image_path)
+            send_email(
+                'Details Submitted - A1 Cutting Feedback', 
+                'cutting_fb@murata.com', 
+                [
+                    'perry.ong@murata.com', 
+                    'mahesh.subramanian@murata.com',
+                    'jianfeng.yin@murata.com', 
+                    'k.gopinath@murata.com',
+                    'keigo.inata@murata.com', 
+                    'kumarsamy.mascow@murata.com', 
+                    'kursi.hanifaansarulla@murata.com', 
+                    'freddy.fong@murata.com', 
+                    'lemuel.viernes@murata.com', 
+                    'muklesur.rahman@murata.com', 
+                    'norzairey.binzainal@murata.com', 
+                    'ramesh.jayabalan@murata.com', 
+                    'ramkumar.venk@murata.com', 
+                    'reluvanullah.s@murata.com', 
+                    'gg.sankar@murata.com',
+                    'yingping.foo@murata.com', 
+                    'gurunathan.kum@murata.com', 
+                    'sellamuthu.shamugam@murata.com', 
+                    'woontak.tang@murata.com', 
+                    'shooni.khor@murata.com', 
+                    'chyansiang.goh@murata.com', 
+                    'zhengpiau.tay@murata.com',
+                    'logenthan.ramachenderan@murata.com',
+                    'yogakumaran.krishnan@murata.com',
+                    'junhui.zou@murata.com',
+                    'kaidi.yau@murata.com',
+                    'menghui.choy@murata.com',
+                    'thiruppathi.balamurugan@murata.com',
+                    'xudong.pan@murata.com',
+                    'hywell.chong@murata.com'
+                ], 
+                email_body, 
+                photo_paths, 
+                grid_image_path
+            )
             st.success('Email sent successfully!')
 
             # Add the new entry to the history DataFrame
@@ -382,7 +426,8 @@ def page_1():
                 'Shifting Direction B': [shift_direction_b],
                 'Shifting Direction C': [shift_direction_c],
                 'Shifting Direction D': [shift_direction_d],
-                'Quality Case': [selected_Case]
+                'Quality Case': [selected_Case],
+                'Process select': [selected_process]
             })
 
             st.session_state.history_df_page1 = pd.concat([st.session_state.history_df_page1, new_entry], ignore_index=True)
