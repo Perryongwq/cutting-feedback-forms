@@ -311,13 +311,13 @@ def page_3():
                 'cutting_fb@murata.com', 
                 [
                     'perry.ong@murata.com',
-                    # 'mahesh.subramanian@murata.com'
-                    # 'k.gopinath@murata.com',
-                    # 'kumarsamy.mascow@murata.com',
-                    # 'logenthan.ramachenderan@murata.com',
-                    # 'ramesh.jayabalan@murata.com',s
-                    # 'yogakumaran.krishnan@murata.com',
-                    # 'reluvanullah.s@murata.com'
+                    'mahesh.subramanian@murata.com',
+                    'k.gopinath@murata.com',
+                    'kumarsamy.mascow@murata.com',
+                    'logenthan.ramachenderan@murata.com',
+                    'ramesh.jayabalan@murata.com',
+                    'yogakumaran.krishnan@murata.com',
+                    'reluvanullah.s@murata.com'
                 ], 
                 email_body, 
                 photo_paths, 
