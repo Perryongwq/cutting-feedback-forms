@@ -255,7 +255,7 @@ def page_2():
                 'cutting_fb@murata.com', 
                 [
                     'perry.ong@murata.com', 
-                    'mahesh.subramanian@murata.com'
+                    'mahesh.subramanian@murata.com',
                     'jianfeng.yin@murata.com', 
                     'k.gopinath@murata.com',
                     'keigo.inata@murata.com', 

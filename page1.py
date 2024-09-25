@@ -141,6 +141,10 @@ def page_1():
     col1, col2, col3, col4 = st.columns([1, 1, 2, 2])
 
     with col1:
+        st.markdown(f"<div style='font-size:{20}px'><b>Reason:</b></div>", unsafe_allow_html=True)
+        Reason_options = ['After Repair', 'After Shut Down', 'Change item', 'Others']
+        selected_reason = st.multiselect('Select reason', Reason_options, key='reason')
+
         st.markdown(f"<div style='font-size:{font_size}px'>Date and Time:</div>", unsafe_allow_html=True)
         date_time = st.date_input('Date', datetime.now()).strftime('%Y-%m-%d') + ' ' + st.time_input('Time', datetime.now()).strftime('%H:%M:%S')
         
@@ -198,9 +202,7 @@ def page_1():
         st.write("Uploaded files:", [photo.name for photo in st.session_state["uploaded_files"]])
 
     with col3:
-        st.markdown(f"<div style='font-size:{font_size}px'>Reason:</div>", unsafe_allow_html=True)
-        Reason_options = ['After Repair', 'After Shut Down', 'Change item', 'Others']
-        selected_reason = st.multiselect('Select reason', Reason_options, key='reason')
+
 
         # Nested columns for Select All and Deselect All buttons
         col3_1, col3_2 = st.columns(2)
@@ -330,7 +332,8 @@ def page_1():
                 'block_d': st.session_state.block_d
             }
 
-            email_body = (f"Date and Time: {date_time}\n"
+            email_body = (f"Reason: {', '.join(selected_reason)}\n"
+                        f"Date and Time: {date_time}\n"
                         f"Lot Number: {lot_number}\n"
                         f"Item Type: {item_type}\n"
                         f"GSX Machine No: {GSX_McNo}\n"
@@ -340,7 +343,6 @@ def page_1():
                         f"NG chip Qty/Lot(pcs): {NG_chip_qty_lot}\n"
                         f"Block Number: {block_number}\n"
                         f"Confirm Date: {confirm_date}\n"
-                        f"Reason: {', '.join(selected_reason)}\n"
                         f"Defects: {', '.join(selected_defects)}\n"
                         f"Judgement Block A: {judgements['block_a']}\n"
                         f"Judgement Block B: {judgements['block_b']}\n"
