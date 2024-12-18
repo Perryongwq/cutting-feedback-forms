@@ -220,7 +220,7 @@ def page_3():
     
     with col4:
         st.markdown(f"<div style='font-size:{font_size}px; margin-right: 50px;'>Defect Name:</div>", unsafe_allow_html=True)
-        defect_options = ['w shift', 'L shift', 'Sheet NG', 'W out/ Lout', 'Deformed', 'Slant Cut', 'Pattern dent', 'Dragging', 'Smearing', 'Partial print', 'Blunt cut', 'Others', 'Rough cut', 'VP dent', 'Line', 'Step Shift', 'Ridge/Dent']
+        defect_options = ['w shift', 'L shift', 'Sheet NG', 'W out/ Lout', 'Deformed', 'Slant Cut', 'Pattern dent','Smearing', 'Partial print', 'Blunt cut', 'Others', 'Rough cut', 'VP dent', 'Step Shift', 'Ridge/Dent']
         selected_defects = st.multiselect('Select defects', defect_options, key='defects')
         sub_col1, sub_col2, sub_col3 = st.columns(3)
         

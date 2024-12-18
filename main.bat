@@ -1,1 +1,1 @@
-call Streamlit run main.py
+call Streamlit run main.py --server.port 8502
