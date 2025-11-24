@@ -1,0 +1,7 @@
+.download-button {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+

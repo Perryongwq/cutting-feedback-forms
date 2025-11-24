@@ -1,0 +1,35 @@
+.grid-cell {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.grid-cell:hover {
+  transform: scale(1.05);
+  z-index: 1;
+}
+
+.grid-cell.selected {
+  border-width: 2px;
+}
+
+.grid-cell-number {
+  font-size: 12px;
+  font-weight: 500;
+  color: #333;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
+.grid-cell-label {
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 2;
+}
+

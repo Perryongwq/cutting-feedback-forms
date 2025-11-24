@@ -1,0 +1,10 @@
+/* Additional form-specific styles */
+.form-group input.error,
+.form-group select.error {
+  border-color: #f44336;
+}
+
+.form-group textarea.error {
+  border-color: #f44336;
+}
+

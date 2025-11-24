@@ -1,0 +1,29 @@
+.grid-selector {
+  margin-bottom: 20px;
+}
+
+.grid-selector-label {
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #555;
+  background-color: #ffeb3b;
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.grid-selector-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.grid-selector-grid {
+  display: grid;
+  gap: 2px;
+  background-color: #000;
+  padding: 2px;
+  border-radius: 4px;
+  max-width: fit-content;
+}
+

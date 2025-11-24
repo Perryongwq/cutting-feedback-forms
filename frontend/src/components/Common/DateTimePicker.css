@@ -1,0 +1,42 @@
+.datetime-picker {
+  margin-bottom: 15px;
+}
+
+.datetime-picker-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #555;
+}
+
+.datetime-picker-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.datetime-picker-date,
+.datetime-picker-time {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.datetime-picker-date:focus,
+.datetime-picker-time:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.datetime-picker-date.error,
+.datetime-picker-time.error {
+  border-color: #f44336;
+}
+
+.datetime-picker-error {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
