@@ -209,3 +209,4 @@ class EmailService:
             f"Process select: {', '.join(data.get('process_selection', []))}\n"
         )
 
+

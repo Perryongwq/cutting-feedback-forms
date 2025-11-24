@@ -222,3 +222,4 @@ All endpoints return JSON error responses in this format:
 5. Maximum file size is 10MB by default (configurable)
 6. All required fields must be provided
 
+

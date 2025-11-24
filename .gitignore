@@ -25,3 +25,7 @@ yarn-error.log*
 build/
 dist/
 *.log
+
+# Upload directories (user-generated content)
+backend/uploads/
+backend/uploads/**

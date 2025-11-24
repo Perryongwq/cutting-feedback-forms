@@ -101,3 +101,4 @@ const HistoryTable = ({ data, columns }) => {
 
 export default HistoryTable;
 
+

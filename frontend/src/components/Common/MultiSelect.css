@@ -1,13 +1,18 @@
+/* MultiSelect styles - overridden by unified App.css, kept for reference */
+/* The unified styles in App.css take precedence */
+
 .multiselect {
-  margin-bottom: 15px;
+  margin-bottom: 6px;
   position: relative;
 }
 
 .multiselect-label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   font-weight: 500;
   color: #555;
+  font-size: 13px;
+  line-height: 1.2;
 }
 
 .multiselect-dropdown {
@@ -16,7 +21,8 @@
   border-radius: 4px;
   background-color: white;
   cursor: pointer;
-  min-height: 38px;
+  min-height: 32px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .multiselect-dropdown.error {
@@ -26,25 +32,28 @@
 .multiselect-dropdown:focus {
   outline: none;
   border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
 }
 
 .multiselect-selected {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
-  min-height: 38px;
+  padding: 6px 10px;
+  min-height: 32px;
 }
 
 .multiselect-placeholder {
   color: #999;
+  font-size: 13px;
 }
 
 .multiselect-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 3px;
   flex: 1;
+  margin-right: 6px;
 }
 
 .multiselect-tag {
@@ -52,10 +61,18 @@
   align-items: center;
   background-color: #e3f2fd;
   color: #1976d2;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  gap: 5px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  gap: 3px;
+  line-height: 1.2;
+  max-width: 120px;
+}
+
+.multiselect-tag-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .multiselect-tag-remove {
@@ -63,10 +80,11 @@
   border: none;
   color: #1976d2;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1;
   padding: 0;
-  margin-left: 4px;
+  margin-left: 2px;
+  transition: color 0.2s;
 }
 
 .multiselect-tag-remove:hover {
@@ -75,8 +93,9 @@
 
 .multiselect-arrow {
   color: #666;
-  font-size: 12px;
-  transition: transform 0.3s;
+  font-size: 10px;
+  transition: transform 0.2s;
+  margin-left: 6px;
 }
 
 .multiselect-dropdown.open .multiselect-arrow {
@@ -92,19 +111,23 @@
   border: 1px solid #ddd;
   border-top: none;
   border-radius: 0 0 4px 4px;
-  max-height: 200px;
+  max-height: 180px;
   overflow-y: auto;
   z-index: 1000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0; /* No padding - flush to left */
 }
 
 .multiselect-option {
   display: flex;
   align-items: center;
-  padding: 10px 12px;
+  padding: 4px 8px; /* Tight padding */
+  padding-left: 4px; /* Flush to left edge */
   cursor: pointer;
-  transition: background-color 0.2s;
-  gap: 8px;
+  transition: background-color 0.15s;
+  gap: 4px; /* Tight gap between checkbox and text */
+  font-size: 13px;
+  white-space: nowrap; /* No text wrapping */
 }
 
 .multiselect-option:hover {
@@ -113,15 +136,44 @@
 
 .multiselect-option.selected {
   background-color: #e3f2fd;
+  color: #1976d2;
 }
 
 .multiselect-option input[type="checkbox"] {
   cursor: pointer;
+  margin: 0;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0; /* Prevent checkbox from shrinking */
+}
+
+.multiselect-option span {
+  white-space: nowrap; /* No text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .multiselect-error {
   color: #f44336;
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 11px;
+  margin-top: 3px;
+  line-height: 1.2;
 }
 
+/* Scrollbar styling for multiselect options */
+.multiselect-options::-webkit-scrollbar {
+  width: 4px;
+}
+
+.multiselect-options::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.multiselect-options::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.multiselect-options::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

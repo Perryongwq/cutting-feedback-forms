@@ -121,3 +121,4 @@ def validate_date_format(date_str: str) -> bool:
     except (ValueError, TypeError):
         return False
 
+

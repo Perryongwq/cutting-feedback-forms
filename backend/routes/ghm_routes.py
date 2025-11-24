@@ -30,30 +30,50 @@ def submit():
     Submit GHM cutting process feedback form.
     """
     try:
+        import json
+        
+        # Helper function to safely parse JSON or return list
+        def parse_json_or_list(field_name, default=[]):
+            """Parse JSON string or return getlist result."""
+            value = request.form.get(field_name)
+            if value:
+                try:
+                    # Try to parse as JSON first (frontend sends arrays as JSON strings)
+                    parsed = json.loads(value)
+                    return parsed if isinstance(parsed, list) else [parsed]
+                except (json.JSONDecodeError, TypeError):
+                    # If not JSON, try getlist
+                    return request.form.getlist(field_name) or default
+            return request.form.getlist(field_name) or default
+        
         # Get form data
         if 'data' in request.form:
             form_data = json.loads(request.form['data'])
         else:
             form_data = {
-                'date_time': request.form.get('date_time'),
-                'lot_number': request.form.get('lot_number'),
-                'item_type': request.form.get('item_type'),
-                'mln_machine_no': request.form.get('mln_machine_no'),
-                'mc_machine_no': request.form.get('mc_machine_no'),
-                'cut_operator_payroll': request.form.get('cut_operator_payroll'),
-                'ng_block_lot': request.form.get('ng_block_lot'),
-                'ng_chip_qty_lot': request.form.get('ng_chip_qty_lot'),
-                'block_number': request.form.get('block_number'),
-                'confirm_date': request.form.get('confirm_date'),
-                'reason': request.form.getlist('reason') if 'reason' in request.form else json.loads(request.form.get('reason', '[]')),
-                'defects': request.form.getlist('defects') if 'defects' in request.form else json.loads(request.form.get('defects', '[]')),
-                'judgement': request.form.get('judgement'),
-                'shifting_amount': request.form.get('shifting_amount'),
-                'shifting_direction': request.form.getlist('shifting_direction') if 'shifting_direction' in request.form else json.loads(request.form.get('shifting_direction', '[]')),
-                'quality_case': request.form.get('quality_case'),
-                'process_selection': request.form.getlist('process_selection') if 'process_selection' in request.form else json.loads(request.form.get('process_selection', '[]')),
-                'grid': json.loads(request.form.get('grid', '[]'))
+                'date_time': request.form.get('date_time', ''),
+                'lot_number': request.form.get('lot_number', ''),
+                'item_type': request.form.get('item_type', ''),
+                'mln_machine_no': request.form.get('mln_machine_no', ''),
+                'mc_machine_no': request.form.get('mc_machine_no', ''),
+                'cut_operator_payroll': request.form.get('cut_operator_payroll', ''),
+                'ng_block_lot': request.form.get('ng_block_lot', ''),
+                'ng_chip_qty_lot': request.form.get('ng_chip_qty_lot', ''),
+                'block_number': request.form.get('block_number', ''),
+                'confirm_date': request.form.get('confirm_date', ''),
+                'reason': parse_json_or_list('reason'),
+                'defects': parse_json_or_list('defects'),
+                'judgement': request.form.get('judgement', ''),
+                'shifting_amount': request.form.get('shifting_amount', ''),
+                'shifting_direction': parse_json_or_list('shifting_direction'),
+                'quality_case': request.form.get('quality_case', ''),
+                'process_selection': parse_json_or_list('process_selection'),
+                'grid': json.loads(request.form.get('grid', '[]')) if request.form.get('grid') else []
             }
+        
+        # Validate grid data
+        if not isinstance(form_data.get('grid'), list):
+            form_data['grid'] = []
         
         # Validate form data
         errors = schema.validate(form_data)
@@ -87,7 +107,8 @@ def submit():
         
         # Send email
         email_service = get_email_service()
-        email_service.init_app(current_app)
+        if not email_service.mail:
+            email_service.init_app(current_app)
         email_sent = email_service.send_feedback_email(
             'ghm',
             'Details Submitted - GHM Cutting Feedback',

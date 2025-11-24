@@ -257,3 +257,4 @@ class KEMFormSchema(Schema):
         if not all(len(row) == 3 for row in grid):
             raise ValidationError("Each grid row must have 3 columns")
 
+
