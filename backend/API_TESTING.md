@@ -223,3 +223,4 @@ All endpoints return JSON error responses in this format:
 6. All required fields must be provided
 
 
+
