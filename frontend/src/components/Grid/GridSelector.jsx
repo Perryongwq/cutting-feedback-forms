@@ -7,7 +7,8 @@ const GridSelector = ({
   value = null, 
   onChange, 
   showBlockLabels = false, // Show A, B, C, D labels for A1
-  label = '' 
+  label = '',
+  showImage = false // Show cutfb.png image (only for A1)
 }) => {
   // Initialize grid state
   const initializeGrid = () => {
@@ -87,18 +88,25 @@ const GridSelector = ({
           Deselect All
         </button>
       </div>
-      <div className="grid-selector-grid" style={{ gridTemplateColumns: `repeat(${size}, 1fr)` }}>
-        {grid.map((row, rowIndex) =>
-          row.map((cell, colIndex) => (
-            <GridCell
-              key={`${rowIndex}-${colIndex}`}
-              selected={cell}
-              onClick={() => toggleCell(rowIndex, colIndex)}
-              blockLabel={getBlockLabel(rowIndex, colIndex)}
-              blockColor={getBlockColor(rowIndex, colIndex)}
-              cellNumber={rowIndex * size + colIndex + 1}
-            />
-          ))
+      <div className="grid-selector-wrapper">
+        <div className="grid-selector-grid" style={{ gridTemplateColumns: `repeat(${size}, 1fr)` }}>
+          {grid.map((row, rowIndex) =>
+            row.map((cell, colIndex) => (
+              <GridCell
+                key={`${rowIndex}-${colIndex}`}
+                selected={cell}
+                onClick={() => toggleCell(rowIndex, colIndex)}
+                blockLabel={getBlockLabel(rowIndex, colIndex)}
+                blockColor={getBlockColor(rowIndex, colIndex)}
+                cellNumber={rowIndex * size + colIndex + 1}
+              />
+            ))
+          )}
+        </div>
+        {showImage && (
+          <div className="grid-selector-image">
+            <img src="/cutfb.png" alt="Cutting Feedback" />
+          </div>
         )}
       </div>
     </div>

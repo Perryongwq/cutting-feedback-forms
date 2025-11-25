@@ -475,7 +475,8 @@ const A1Form = () => {
                 value={formData.grid}
                 onChange={(grid) => handleChange('grid', grid)}
                 showBlockLabels={true}
-                label="GSX MACHINE BACKSIDE / FRONT SIDE"
+                showImage={true}
+                label="GSX MACHINE FRONT SIDE"
               />
             </div>
           </div>
@@ -518,5 +519,6 @@ const A1Form = () => {
 };
 
 export default A1Form;
+
 
 

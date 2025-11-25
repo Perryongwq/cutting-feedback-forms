@@ -203,7 +203,7 @@ const KEMForm = () => {
           </div>
 
           <div className="form-row">
-            <div className="form-group">
+            <div className="form-group mc-machine-no">
               <label>MC Machine No</label>
               <input
                 type="text"
@@ -265,13 +265,6 @@ const KEMForm = () => {
                 className={errors.confirm_date ? 'error' : ''}
               />
               {errors.confirm_date && <div className="error-message">{errors.confirm_date}</div>}
-            </div>
-            <div className="form-group">
-              <FileUpload
-                files={files}
-                onChange={setFiles}
-                error={errors.files}
-              />
             </div>
           </div>
 
@@ -358,6 +351,16 @@ const KEMForm = () => {
                 value={formData.grid}
                 onChange={(grid) => handleChange('grid', grid)}
                 label="ERST MACHINE BACKSIDE / FRONT SIDE"
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <FileUpload
+                files={files}
+                onChange={setFiles}
+                error={errors.files}
               />
             </div>
           </div>

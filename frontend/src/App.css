@@ -211,16 +211,21 @@ code {
 
 .form-row {
   display: flex;
-  gap: 12px;
+  gap: 20px;
   margin-bottom: 12px;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .form-group {
   flex: 1;
   min-width: 180px;
-  margin-bottom: 6px;
+  margin-bottom: 0;
+  margin-right: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-right: 0;
 }
 
 .form-group label {
@@ -242,6 +247,7 @@ code {
   font-size: 13px;
   line-height: 1.4;
   transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -564,7 +570,14 @@ code {
    ========================================================================== */
 
 .datetime-picker {
-  margin-bottom: 6px;
+  margin-bottom: 0;
+  margin-right: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 .datetime-picker-label {
@@ -794,6 +807,13 @@ code {
   transition: all 0.2s;
 }
 
+.grid-selector-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
 .grid-selector-grid {
   display: grid;
   gap: 1px;
@@ -803,6 +823,23 @@ code {
   max-width: fit-content;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   border: 2px solid #e0e0e0;
+  flex-shrink: 0;
+}
+
+.grid-selector-image {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.grid-selector-image img {
+  display: block;
+  width: auto;
+  height: auto;
+  /* Preserve original image size - do not scale */
+  max-width: none;
+  max-height: none;
+  object-fit: none;
 }
 
 /* Grid Cell Styles */
@@ -1046,7 +1083,7 @@ code {
 .form-row:has(.grid-selector) .form-group {
   flex: none;
   width: 100%;
-  max-width: 400px;
+  max-width: none;
 }
 
 /* File upload section styling */
@@ -1066,6 +1103,18 @@ code {
 
 .form-row .form-group:has(.datetime-picker) {
   align-self: flex-start;
+  flex: 1 1 auto;
+  min-width: 200px;
+  max-width: none;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+/* Reduce spacing for MC Machine No in GHM and KEM forms to prevent overlap */
+.form-group.mc-machine-no {
+  flex: 0 1 auto;
+  min-width: 150px;
+  max-width: 200px;
 }
 
 /* ==========================================================================

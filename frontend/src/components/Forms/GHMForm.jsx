@@ -69,7 +69,9 @@ const GHMForm = () => {
     const newErrors = {};
     
     if (!formData.date_time) newErrors.date_time = 'Required';
-    if (!formData.lot_number) newErrors.lot_number = 'Required';
+    if (!formData.lot_number || formData.lot_number.length > 10) {
+      newErrors.lot_number = 'Required (max 10 characters)';
+    }
     if (!formData.item_type) newErrors.item_type = 'Required';
     if (!formData.mln_machine_no) newErrors.mln_machine_no = 'Required';
     if (!formData.mc_machine_no) newErrors.mc_machine_no = 'Required';
@@ -168,11 +170,12 @@ const GHMForm = () => {
               />
             </div>
             <div className="form-group">
-              <label>Lot Number</label>
+              <label>Lot Number (max 10 chars)</label>
               <input
                 type="text"
                 value={formData.lot_number}
                 onChange={(e) => handleChange('lot_number', e.target.value)}
+                maxLength={10}
                 className={errors.lot_number ? 'error' : ''}
               />
               {errors.lot_number && <div className="error-message">{errors.lot_number}</div>}
@@ -200,7 +203,7 @@ const GHMForm = () => {
           </div>
 
           <div className="form-row">
-            <div className="form-group">
+            <div className="form-group mc-machine-no">
               <label>MC Machine No</label>
               <input
                 type="text"
@@ -262,13 +265,6 @@ const GHMForm = () => {
                 className={errors.confirm_date ? 'error' : ''}
               />
               {errors.confirm_date && <div className="error-message">{errors.confirm_date}</div>}
-            </div>
-            <div className="form-group">
-              <FileUpload
-                files={files}
-                onChange={setFiles}
-                error={errors.files}
-              />
             </div>
           </div>
 
@@ -355,6 +351,16 @@ const GHMForm = () => {
                 value={formData.grid}
                 onChange={(grid) => handleChange('grid', grid)}
                 label="MLN MACHINE FRONT SIDE"
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <FileUpload
+                files={files}
+                onChange={setFiles}
+                error={errors.files}
               />
             </div>
           </div>
